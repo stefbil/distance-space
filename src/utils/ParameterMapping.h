@@ -18,7 +18,7 @@ namespace DistanceMapping {
     inline constexpr float SHELF_DB=-14.f, TILT_DB=2.5f;
     inline constexpr float SHELF_FMAX=8000.f, SHELF_FMIN=2500.f;
 
-    // CUE 1: -20*log10(1 + d*19)  [0 dB -> -14.3 dB]
+    // CUE 1: -20*log10(1 + d*19)  [0 dB -> -26.0 dB at d=1]
     [[nodiscard]] inline float gainDb(float d) noexcept {
         d=std::clamp(d,0.f,1.f);
         return -20.f*std::log10(1.f+d*(R_MAX/R_REF-1.f)); }
