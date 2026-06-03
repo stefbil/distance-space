@@ -7,7 +7,7 @@
 // CUE 2: HF Shelf air absorption (ISO 9613-1, hyper-real)
 // CUE 3: Mid Tilt Fletcher-Munson equal-loudness compensation
 // CUE 4: Reverb Wet DRR model (Zahorik 2002), sqrt curve
-// CUE 5: Pre-delay  geometric room reflection model
+// CUE 5: Pre-delay  perceptual reverberation-onset control (linear in d)
 
 #include <cmath>
 #include <algorithm>
@@ -18,7 +18,7 @@ namespace DistanceMapping {
     inline constexpr float SHELF_DB=-14.f, TILT_DB=2.5f;
     inline constexpr float SHELF_FMAX=8000.f, SHELF_FMIN=2500.f;
 
-    // CUE 1: -20*log10(1 + d*19)  [0 dB -> -26.0 dB at d=1]
+    // CUE 1: -20*log10(1 + d*19)  [0 dB -> -14.3 dB]
     [[nodiscard]] inline float gainDb(float d) noexcept {
         d=std::clamp(d,0.f,1.f);
         return -20.f*std::log10(1.f+d*(R_MAX/R_REF-1.f)); }
@@ -43,7 +43,7 @@ namespace DistanceMapping {
     [[nodiscard]] inline float preDelayMs(float d) noexcept {
         return PRE_MAX_MS*std::clamp(d,0.f,1.f); }
 
-    // FDN room size scale  [0.20 -> 0.85]
+    // Freeverb room-size scale  [0.20 -> 0.85]
     [[nodiscard]] inline float roomSize(float d) noexcept {
         return 0.20f+0.65f*std::clamp(d,0.f,1.f); }
 
@@ -52,7 +52,7 @@ namespace DistanceMapping {
         d=std::clamp(d,0.f,1.f);
         return 1.f/(1.f+std::exp(-10.f*(d-0.5f))); }
 
-    // FDN damping coefficient  [0.30 -> 0.85]
+    // Freeverb damping coefficient  [0.30 -> 0.85]
     [[nodiscard]] inline float reverbDamping(float d) noexcept {
         return 0.30f+0.55f*std::clamp(d,0.f,1.f); }
 

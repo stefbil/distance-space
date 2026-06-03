@@ -110,7 +110,12 @@ void DistancePluginEditor::paint(juce::Graphics& g) {
     g.setColour(juce::Colour(0x10FFFFFF));
     g.fillRoundedRectangle(234.f,438.f,620.f,30.f,4.f);
     g.setColour(juce::Colour(0x88FFA028));
-    g.drawText("PRESETS",240,442,66,22,juce::Justification::centredLeft); }
+    g.drawText("PRESETS",240,442,66,22,juce::Justification::centredLeft);
+
+    g.setFont(juce::Font(juce::Font::getDefaultMonospacedFontName(),10.f,juce::Font::plain));
+    g.setColour(juce::Colour(0x50FFFFFF));
+    g.drawText("v " + juce::String(JucePlugin_VersionString),
+               W - 76,H - 22,68,16,juce::Justification::bottomRight); }
 
 void DistancePluginEditor::resized() {
     bypEQBtn .setBounds(478,14,68,24); bypRevBtn.setBounds(550,14,68,24);
