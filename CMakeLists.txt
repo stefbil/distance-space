@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(DistancePlugin VERSION 1.0.0)
+project(DistancePlugin VERSION 1.1.0)
 
 #Juce Path
 add_subdirectory("E:\\University\\Medialogy\\JUCE" build_juce)
@@ -30,12 +30,14 @@ juce_add_binary_data(HrtfBinaryData
         "HRTF IR/H0e000a_LEFT.wav"
         "HRTF IR/H0e000a_RIGHT.wav")
 
-target_sources(DistancePlugin PRIVATE
+set(DISTANCE_CORE_SOURCES
     src/PluginProcessor.cpp
     src/PluginEditor.cpp
     src/dsp/ReverbStage.cpp
     src/dsp/DistanceChain.cpp
     src/ui/CueActivityComponent.cpp)
+
+target_sources(DistancePlugin PRIVATE ${DISTANCE_CORE_SOURCES})
 target_compile_definitions(DistancePlugin PUBLIC
     JUCE_WEB_BROWSER=0
     JUCE_USE_CURL=0
@@ -43,6 +45,32 @@ target_compile_definitions(DistancePlugin PUBLIC
     JUCE_STRICT_REFCOUNTEDPOINTER=1
     JUCE_DISPLAY_SPLASH_SCREEN=0)
 target_link_libraries(DistancePlugin PRIVATE
+    HrtfBinaryData
+    juce::juce_audio_utils
+    juce::juce_dsp
+    juce::juce_core
+    juce::juce_data_structures
+    juce::juce_gui_basics
+    juce::juce_graphics
+    juce::juce_audio_basics
+    juce::juce_recommended_config_flags
+    juce::juce_recommended_warning_flags)
+
+juce_add_console_app(DistanceBenchmark
+    PRODUCT_NAME "DistanceBenchmark")
+
+target_sources(DistanceBenchmark PRIVATE
+    ${DISTANCE_CORE_SOURCES}
+    src/utils/BenchmarkRunner.cpp)
+
+target_include_directories(DistanceBenchmark PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+
+target_compile_definitions(DistanceBenchmark PRIVATE
+    JUCE_WEB_BROWSER=0
+    JUCE_USE_CURL=0
+    JUCE_DISPLAY_SPLASH_SCREEN=0)
+
+target_link_libraries(DistanceBenchmark PRIVATE
     HrtfBinaryData
     juce::juce_audio_utils
     juce::juce_dsp
