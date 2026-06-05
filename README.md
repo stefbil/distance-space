@@ -13,7 +13,6 @@ Distance Space is a JUCE-based stereo audio effect plugin that simulates source 
   - Signal scope
   - Cue activity meter
   - L/R/Wet LED meters
-- Factory-style presets (Reference, Intimate, Stage, Hall, Distant, HRTF Near, HRTF Deep)
 - Custom HRTF IR loading from `.wav`, `.aiff`, or `.flac`
 
 ## Repository Layout
