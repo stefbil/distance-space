@@ -52,6 +52,22 @@ The repository also defines a console target, `DistanceBenchmark`, that benchmar
 
 After configuring/building, run the benchmark binary from your build output directory.
 
+## Reference
+
+If you find this project helpful, please cite our paper :)
+```latex
+@inproceedings{biliousis2026perceptually,
+  title     = {A Perceptually Inspired Single-Parameter Auditory Distance Renderer for Music Production},
+  author    = {Biliousis, Stefanos and Erkut, Cumhur},
+  booktitle = {Proceedings of the 29th International Conference on Digital Audio Effects (DAFx26)},
+  address   = {Cambridge, MA, USA},
+  month     = {September},
+  year      = {2026},
+  pages     = {463--465},
+  url       = {https://dafx.de/paper-archive/2026/papers/DAFx26_demo_57.pdf}
+}
+```
+
 ## License
 
 This project is distributed under the terms in [`LICENSE`](./LICENSE).
